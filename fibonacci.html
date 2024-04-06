@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Sequence Generator</title>
+</head>
+<body>
+    <h1>Fibonacci Sequence Generator</h1>
+    <p>Enter the number of terms you want to generate:</p>
+    <input type="number" id="numTerms">
+    <button onclick="generateFibonacci()">Generate</button>
+    <br>
+    <p id="output"></p>
+
+    <script>
+        function generateFibonacci() {
+            var numTerms = document.getElementById("numTerms").value;
+            var output = "";
+            var n1 = 0, n2 = 1, nextTerm;
+
+            if (numTerms <= 0) {
+                output = "Please enter a positive number.";
+            } else {
+                output = n1 + " ";
+                output += n2 + " ";
+                for (var i = 2; i < numTerms; i++) {
+                    nextTerm = n1 + n2;
+                    output += nextTerm + " ";
+                    n1 = n2;
+                    n2 = nextTerm;
+                }
+            }
+            document.getElementById("output").innerHTML = output;
+        }
+    </script>
+</body>
+</html>
