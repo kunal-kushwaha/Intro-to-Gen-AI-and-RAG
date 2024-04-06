@@ -1,0 +1,42 @@
+def create_grid():
+    return [[0 for _ in range(6)] for _ in range(6)]
+
+def print_grid(grid):
+    for row in grid:
+        print(row)
+
+def is_valid(grid, row, col, num):
+    for x in range(6):
+        if grid[row][x] == num or grid[x][col] == num:
+            return False
+    start_row, start_col = row - row % 3, col - col % 3
+    for i in range(3):
+        for j in range(3):
+            if grid[i + start_row][j + start_col] == num:
+                return False
+    return True
+
+def solve_sudoku(grid, row=0, col=0):
+    if row == 6 - 1 and col == 6:
+        return True
+    if col == 6:
+        row += 1
+        col = 0
+    if grid[row][col] > 0:
+        return solve_sudoku(grid, row, col + 1)
+    for num in range(1, 10):
+        if is_valid(grid, row, col, num):
+            grid[row][col] = num
+            if solve_sudoku(grid, row, col + 1):
+                return True
+    grid[row][col] = 0
+    return False
+
+def main():
+    grid = create_grid()
+    print_grid(grid)
+    solve_sudoku(grid)
+    print_grid(grid)
+
+if __name__ == "__main__":
+    main()
